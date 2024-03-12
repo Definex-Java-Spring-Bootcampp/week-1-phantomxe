@@ -52,4 +52,8 @@ public class UserFactory {
             System.out.println(e.getMessage());
         }
     }
+
+    public List<User> getUserList() {
+        return userList;
+    }
 }
