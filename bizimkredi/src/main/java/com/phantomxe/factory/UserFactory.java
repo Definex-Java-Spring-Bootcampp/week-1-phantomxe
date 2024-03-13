@@ -35,21 +35,23 @@ public class UserFactory {
         } 
     }
 
-    public void createUser(String name, String surname, LocalDate birthDate, String email, String password, String phoneNumber) {
+    public User createUser(String name, String surname, LocalDate birthDate, String email, String password, String phoneNumber) {
         Optional<User> userChecker = userList.stream().filter(user -> user.getEmail().equals(email)).findAny();
         if (userChecker.isPresent()) {
             System.out.println("User already exists with this email address.");
-            return;
+            return null;
         }
 
         try {
             String passwordInHash = hashPassword(password); 
             User user = new User(name, surname, email, passwordInHash, phoneNumber, true);
-            userList.add(user);
+            userList.add(user); 
             System.out.println("User created successfully, " + name);
+            return user;
         } catch (Exception e) {
             System.out.println("User creation failed");
             System.out.println(e.getMessage());
+            return null;
         }
     }
 

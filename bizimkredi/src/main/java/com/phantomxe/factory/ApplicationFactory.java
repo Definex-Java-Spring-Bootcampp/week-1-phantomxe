@@ -1,5 +1,6 @@
 package com.phantomxe.factory;
 
+import java.time.LocalDateTime;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,11 +8,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.swing.text.html.Option;
 
 import com.phantomxe.model.Application;
+import com.phantomxe.model.Product;
 import com.phantomxe.model.User; 
 
 public class ApplicationFactory {
@@ -23,8 +26,8 @@ public class ApplicationFactory {
         this.userFactory = userFactory;
     }
 
-    public void addApplication(Application application) {
-        applicationList.add(application);
+    public void addApplication(Product product, User user) {
+        applicationList.add(new Application(product, user, LocalDateTime.now()));
     }
     
     public List<Application> getApplicationList() {
@@ -64,5 +67,12 @@ public class ApplicationFactory {
         } else {
             throw new Exception("User not found");
         } 
+    }
+
+    public List<Application> getApplicationsAtLastMonth() {
+        return applicationList.stream().filter(application -> {
+            LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
+            return application.getLocalDateTime().isAfter(lastMonth); 
+        }).collect(Collectors.toList());
     }
 }
