@@ -1,5 +1,6 @@
 package com.phantomxe.factory;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -8,12 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.swing.text.html.Option;
-
 import com.phantomxe.model.Application;
+import com.phantomxe.model.Loan;
 import com.phantomxe.model.Product;
 import com.phantomxe.model.User; 
 
@@ -74,5 +73,25 @@ public class ApplicationFactory {
             LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
             return application.getLocalDateTime().isAfter(lastMonth); 
         }).collect(Collectors.toList());
+    }
+
+    public void printHighestLoanApplication() {
+        BigDecimal maxAmount = BigDecimal.ZERO;
+        User user = null;
+        for(Application application : applicationList) {
+            if(application.getProduct() instanceof Loan) {
+                Loan loan = (Loan) application.getProduct();
+                if(loan.getAmount().compareTo(maxAmount) > 0) {
+                    maxAmount = loan.getAmount();
+                    user = application.getUser();
+                }
+            }
+        }
+
+        if(user != null) {
+            System.out.println("Highest Loan Application: " + maxAmount + " User: " + user.getName());
+        } else {
+            System.out.println("No loan application found");
+        } 
     }
 }

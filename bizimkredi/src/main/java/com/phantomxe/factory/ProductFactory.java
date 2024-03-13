@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phantomxe.model.Bank;
 import com.phantomxe.model.Campaign;
 import com.phantomxe.model.ConsumerLoan;
 import com.phantomxe.model.CreditCard;
@@ -47,4 +48,13 @@ public class ProductFactory {
         return productList;
     }
 
+    public void printCreditCardStatusByCampaignCount() {
+        productList.stream()
+            .filter(product -> product instanceof CreditCard)
+            .map(product -> (CreditCard) product)
+            .sorted((card1, card2) -> card2.getCampaignList().size() - card1.getCampaignList().size())
+            .forEach(creditCard -> {
+                System.out.println("Credit Card from Bank: " + creditCard.getBank().getName() + " Campaign Count: " + creditCard.getCampaignList().size());
+            });
+    }
 }
