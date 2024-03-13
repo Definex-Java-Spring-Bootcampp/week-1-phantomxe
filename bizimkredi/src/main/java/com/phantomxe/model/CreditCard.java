@@ -9,8 +9,9 @@ public class CreditCard implements Product{
     private List<Campaign> campaignList;
     private Bank bank;
 
-    public CreditCard(BigDecimal fee, List<Campaign> campaignList) {
+    public CreditCard(Bank bank, BigDecimal fee, List<Campaign> campaignList) {
         this.fee = fee;
+        this.bank = bank;
         this.campaignList = campaignList;
     }
 
