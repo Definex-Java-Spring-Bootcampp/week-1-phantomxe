@@ -1,6 +1,6 @@
 package com.phantomxe.enums;
 
-public enum VechileStatuType {
+public enum VehicleStatuType {
 
     NEW,
     USED

@@ -1,20 +1,20 @@
 package com.phantomxe.model;
 
 import com.phantomxe.enums.LoanType;
-import com.phantomxe.enums.VechileStatuType;
+import com.phantomxe.enums.VehicleStatuType;
 
 import java.math.BigDecimal;
 
-public class VechileLoan extends Loan {
+public class VehicleLoan extends Loan {
 
     private LoanType loanType = LoanType.ARAC_KREDISI;
-    private VechileStatuType vechileStatuType;
+    private VehicleStatuType vehicleStatuType;
 
-    public VechileLoan() {
+    public VehicleLoan() {
 
     }
 
-    public VechileLoan(BigDecimal amount, Integer installment, Double interestRate) {
+    public VehicleLoan(BigDecimal amount, Integer installment, Double interestRate) {
         super(amount, installment, interestRate);
     }
 
